@@ -1,4 +1,4 @@
-#!env php
+#!/usr/bin/env php
 <?php
 
 $db = new PDO('mysql:host=127.0.0.1;port=3306', 'root', 'root');
