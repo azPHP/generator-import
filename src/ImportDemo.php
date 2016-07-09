@@ -5,23 +5,13 @@
  * Date: 7/9/16
  * Time: 11:18 AM
  */
-class ImportDemo
+class ImportDemo extends BaseImporter
 {
     const IMPORT_LENGTH = 25000;
 
-    /**
-     * @var Generator
-     */
-    private $data;
-
-    public function __construct(\DataGenerator $dataGenerator)
-    {
-        $this->data = $dataGenerator->dataMaker();
-        $this->pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=mydb', 'root', 'root');
-    }
-
     public function doImport()
     {
+        $startTime = time();
         $stmt = $this->pdo->prepare(<<<SQL
 INSERT INTO people (identifier, first_name, last_name, birthday, description) VALUES (?, ?, ?, ?, ?)
 SQL
@@ -38,5 +28,9 @@ SQL
 
         $this->pdo->commit();
         echo "\n\n";
+
+        $endTime = time();
+
+        echo "Took " . ($endTime - $startTime) . ' seconds for ' . self::IMPORT_LENGTH . " items\n\n";
     }
 }

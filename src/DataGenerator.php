@@ -27,7 +27,7 @@ class DataGenerator
     public function randomString($length = false)
     {
         if (!$length) {
-            $length = rand(10, 4096);
+            $length = rand(10, 500);
         }
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randstring = '';
