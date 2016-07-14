@@ -8,6 +8,8 @@
  */
 class DataGenerator
 {
+    const CHARACTERS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
     /**
      * @return Generator
      */
@@ -15,7 +17,7 @@ class DataGenerator
     {
         while (true) {
             yield [
-                'identifier' => $this->randomString(64),
+                'identifier' => $this->randomString(32),
                 'first_name' => $this->randomString(10),
                 'last_name' => $this->randomString(15),
                 'birthday' => date('Y-m-d H:i:s'),
@@ -29,10 +31,9 @@ class DataGenerator
         if (!$length) {
             $length = rand(10, 500);
         }
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randstring = '';
         for ($i = 0; $i < $length; $i++) {
-            $randstring .= $characters[rand(0, strlen($characters) - 1)];
+            $randstring .= self::CHARACTERS[rand(0, strlen(self::CHARACTERS) - 1)];
         }
         return $randstring;
     }
