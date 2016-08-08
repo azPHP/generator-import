@@ -16,7 +16,7 @@ class ImportDemo extends BaseImporter
 INSERT INTO people (identifier, first_name, last_name, birthday, description) VALUES (?, ?, ?, ?, ?)
 SQL
         );
-        $this->pdo->beginTransaction();
+//        $this->pdo->beginTransaction();
 
         for ($i=0;$i<self::IMPORT_LENGTH;$i++) {
             $data = $this->data->current();
@@ -24,13 +24,15 @@ SQL
             if ($i % 500 === 0) {
                 echo '.';
             }
+            $this->data->next();
         }
 
-        $this->pdo->commit();
+//        $this->pdo->commit();
         echo "\n\n";
 
         $endTime = time();
 
         echo "Took " . ($endTime - $startTime) . ' seconds for ' . self::IMPORT_LENGTH . " items\n\n";
+        echo "Ate ".memory_get_peak_usage()." bytes\n";
     }
 }

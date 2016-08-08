@@ -33,6 +33,7 @@ class GeneratorImportDemo extends BaseImporter
                 $this->inserter->send(true);
                 echo '.';
             }
+            $this->data->next();
         }
         // always shutdown our generator
         $this->inserter->send(false);
@@ -40,6 +41,7 @@ class GeneratorImportDemo extends BaseImporter
         $endTime = time();
 
         echo "Took " . ($endTime - $startTime) . ' seconds for ' . self::IMPORT_LENGTH . " items\n\n";
+        echo "Ate ".memory_get_peak_usage()." bytes\n";
     }
 
     /**
@@ -69,7 +71,13 @@ class GeneratorImportDemo extends BaseImporter
 
     protected function doInsert($queries, $values)
     {
-        $sql = 'INSERT INTO people (identifier, first_name, last_name, birthday, description) VALUES ';
+        $sql = 'INSERT INTO people (
+             identifier,
+             first_name,
+             last_name,
+             birthday,
+             description
+        ) VALUES ';
         $sql .= implode(', ', $queries);
 
         $stmt = $this->pdo->prepare($sql);
